@@ -9,24 +9,25 @@ $accessKey = $config.access_key
 $secretKey = $config.secret_key
 $appId = $config.app_id
 $appKey = $config.app_key
- 
+
+
 # Generate request header values
 $hdrDate = (Get-Date).ToUniversalTime().ToString("ddd, dd MMM yyyy HH:mm:ss UTC")
 $requestId = [guid]::NewGuid().guid
- 
+
 # Create the HMAC SHA1 of the Base64 decoded secret key for the Authorization header
 $sha = New-Object System.Security.Cryptography.HMACSHA1
 $sha.key = [Convert]::FromBase64String($secretKey)
 $sig = $sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($hdrDate + ":" + $requestId + ":" + $uri + ":" + $appKey))
 $sig = [Convert]::ToBase64String($sig)
- 
+
 # Create Headers
 $headers = @{"Authorization" = "MC " + $accessKey + ":" + $sig;
                 "x-mc-date" = $hdrDate;
                 "x-mc-app-id" = $appId;
                 "x-mc-req-id" = $requestId;
                 "Content-Type" = "application/json"}
- 
+
 # Create post body
 $postBody = "{
                 ""meta"": {
@@ -42,7 +43,7 @@ $postBody = "{
                     }
                 ]
             }"
- 
+
 # Send Request
 $response = Invoke-RestMethod -Method Post -Headers $headers -Body $postBody -Uri $url
 
@@ -52,7 +53,7 @@ $message_to_release = @()
 # Loop over response to get message ids to release
 foreach ($item in $response.data) {
     # Replace $item.reasonCode with the reason that needs to be bulk released
-    if ($item.reasonCode -eq "admin_message_hold_applied_impersonation_protect_policy") { 
+    if ($item.reasonCode -contains "default_inbound_attachment_protect_definition") {
         $message_to_release += $item.id
     }
 }
@@ -75,7 +76,7 @@ foreach ($message in $message_to_release) {
     "x-mc-app-id" = $appId;
     "x-mc-req-id" = $requestId;
     "Content-Type" = "application/json"}
-	
+
     #Create post body
     $postBody = "{
         ""data"": [
