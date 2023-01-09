@@ -4,9 +4,9 @@
 # Use the Base URL that corresponds to the location of your account
 
 @{
-    accessKey = "test"
-    appId     = "123456"
-    appKey    = "7890"
-    baseURL   = "https://example.com"
-    secretKey = "tested"
+    accessKey = ""
+    appId     = ""
+    appKey    = ""
+    baseURL   = ""
+    secretKey = ""
 }
