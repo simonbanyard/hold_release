@@ -24,6 +24,6 @@ Depending on where your account is located geographically, the `base_url` variab
 ## Running the Script
 The script is designed to be run *hourly*, and will release messages from the previous hour that the script was run. The file can be saved anywhere on the network, so long as the sheduler has access to it. It is also important that the `Release_Message.ps1` file and `config.psd1` file are in the same location.
 
-ou need to set up a task or job to regularly run the file. Please see below for instructions for each platform.
+You need to set up a task or job to regularly run the file. Please see below for instructions for each platform.
 
 - Windows Task Scheduler: https://thesysadminchannel.com/automate-powershell-scripts-with-task-scheduler/
