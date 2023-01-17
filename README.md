@@ -1,7 +1,7 @@
 # Configuration
 ## Obtaining the API Keys
 Please refer to: [Mimecast's Knowledge Base article on Managing API Applications](https://community.mimecast.com/s/article/Managing-API-Applications-505230018)
-## Edit _config.psd1
+## Edit config.psd1
 Once you have the application keys, open the _config.psd1_ file in a text editor, placing the keys between the empty quotes and save the file.
 
 ![Editor showing an empty config.toml file](_images/psd1.png)
